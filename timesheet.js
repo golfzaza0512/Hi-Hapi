@@ -13,6 +13,11 @@ exports.plugin = {
             method: getTimesheetList
         });
 
+        server.method({
+            name: "timesheet.UpdateTimesheet",
+            method: updateTimesheet
+        });
+
     }
 };
 
@@ -60,5 +65,45 @@ var getTimesheetList = (server, request) => {
             .then((res) => {
                 resolve(res);
             })
+    });
+}
+
+const updateTimesheet = (server, request) => {
+    const body = {
+        date: request.payload.date,
+        timeIn: request.payload.timeIn,
+        timeOut: request.payload.timeOut,
+        description: request.payload.description,
+        siteName: request.payload.siteName,
+        ot: request.payload.ot
+    }
+
+    return new Promise((resolve, reject) => {
+        // const date = request.mongo.date;
+        server.methods.datasource.timesheet
+            .Update(request.mongo.db, request.params.date, body)
+            .then((res) => {
+                if (res.result.ok == 1) {
+                    console.log(body)
+                    resolve({
+                        status: 200,
+                        message: "เพิ่มได้เว้ยยยยยยย",
+                        data: body
+                    });
+                } else {
+                    reject({
+                        status: 500,
+                        message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                        data: null
+                    });
+                }
+            }).catch((error) => {
+                console.log(error);
+                reject({
+                    status: 500,
+                    message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                    data: null
+                });
+            });
     });
 }

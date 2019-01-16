@@ -39,6 +39,16 @@ server.route({
     }
 });
 
+server.route({
+    method: "PUT",
+    path: "/update/{date}",
+    async handler(request, reply) {
+        return server.methods.timesheet
+            .UpdateTimesheet(server, request)
+            .then(reply);
+    }
+});
+
 // Start the server
 const start = async function () {
     try {

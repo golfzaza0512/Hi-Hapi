@@ -13,6 +13,11 @@ exports.plugin = {
             method: QueryTimesheet,
         });
 
+        server.method({
+            name: "datasource.timesheet.Update",
+            method: UpdateTimesheet,
+        });
+
     }
 };
 
@@ -31,4 +36,8 @@ const QueryTimesheet = (db) => {
                 }
             });
     });
+}
+
+const UpdateTimesheet = (db, _date, body) => {
+    return db.collection('mongo-naja').update({date:_date}, body);
 }
