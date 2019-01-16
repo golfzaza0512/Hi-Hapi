@@ -2,14 +2,24 @@ exports.plugin = {
     name: "timesheet-datasource",
     version: "1.0.0",
     register: async function (server, options) {
-            server.method({
+
+        server.method({
+            name: "datasource.timesheet.Insert",
+            method: InsertTimesheet,
+        });
+
+        server.method({
             name: "datasource.timesheet.Query",
             method: QueryTimesheet,
         });
 
-      
     }
 };
+
+const InsertTimesheet = (db, body) => {
+    return db.collection('mongo-naja').insert(body);
+}
+
 const QueryTimesheet = (db) => {
     return new Promise((resolve, reject) => {
         db.collection('mongo-naja').find({})
@@ -21,4 +31,4 @@ const QueryTimesheet = (db) => {
                 }
             });
     });
- }
+}

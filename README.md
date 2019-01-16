@@ -11,7 +11,6 @@
     "message": "success",
     "data": [
         {
-            "id": ,
             "date": "2019-01-01",
             "timeIn": "08:30",
             "timeOut": "17:30",
@@ -28,5 +27,20 @@
             "ot": "--"
         }
     ]
+}
+```
+
+### Add Timesheet 
+`POST` /add
+#### Request body
+```json
+{
+            "date": "date",
+            "timeIn": "string",
+            "timeOut": "string",
+            "description": "string",
+            "siteName": "string",
+            "ot": "string"
+        
 }
 ```

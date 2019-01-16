@@ -17,14 +17,25 @@ const server = Hapi.server({
     port: process.env.PORT || 8000
 });
 
-// Add the route
+// the route
+
+server.route({
+    method: "POST",
+    path: "/add",
+    handler: (request, reply) => {
+        return server.methods.timesheet
+            .AddTimesheet(server, request)
+            .then(reply);
+    }
+});
+
 server.route({
     method: 'GET',
     path: '/list',
     handler: (request, reply) => {
         return server.methods.timesheet
-        .List(server, request)
-        .then(reply);
+            .List(server, request)
+            .then(reply);
     }
 });
 
