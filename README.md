@@ -69,7 +69,7 @@
 ```
 
 ### update
-`PUT` /update/{cardName}
+`PUT` /update/{id}
 #### Request body
 ```json
 {
@@ -98,7 +98,7 @@
 ```
 
 ### delete
-`DELETE` /del/{cardName}
+`DELETE` /del/{id}
 #### Response body
 ```json
 {
