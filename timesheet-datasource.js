@@ -18,6 +18,11 @@ exports.plugin = {
             method: UpdateTimesheet,
         });
 
+        server.method({
+            name: "datasource.timesheet.Remove",
+            method: RemoveDate,
+        });
+
     }
 };
 
@@ -40,4 +45,8 @@ const QueryTimesheet = (db) => {
 
 const UpdateTimesheet = (db, _date, body) => {
     return db.collection('mongo-naja').update({date:_date}, body);
+}
+
+const RemoveDate = (db, date) => {
+    return db.collection('mongo-naja').deleteOne({ date: date });
 }

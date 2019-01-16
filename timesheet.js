@@ -18,6 +18,11 @@ exports.plugin = {
             method: updateTimesheet
         });
 
+        server.method({
+            name: "timesheet.RemoveTimesheet",
+            method: removeTimesheet
+        });
+
     }
 };
 
@@ -102,6 +107,37 @@ const updateTimesheet = (server, request) => {
                 reject({
                     status: 500,
                     message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                    data: null
+                });
+            });
+    });
+}
+
+var removeTimesheet = (server, request) => {
+    const date = request.params.date;
+    return new Promise((resolve, reject) => {
+        server.methods.datasource.timesheet
+            .Remove(request.mongo.db, date)
+            .then((res) => {
+                if (res.deletedCount) {
+                    resolve({
+                        status: 200,
+                        message: "ลบได้เว้ยยยยยยย",
+                        data: null
+                    });
+                } else {
+                    reject({
+                        status: 500,
+                        message: "ลบไม่ได้เว้ยยยยยยย",
+                        data: null
+                    });
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                reject({
+                    status: 500,
+                    message: "ลบไม่ได้เว้ยยยยยยย",
                     data: null
                 });
             });

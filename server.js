@@ -49,6 +49,16 @@ server.route({
     }
 });
 
+server.route({
+    method: "DELETE",
+    path: "/del/{date}",
+    handler: (request, reply) => {
+        return server.methods.timesheet
+            .RemoveTimesheet(server, request)
+            .then(reply);
+    }
+});
+
 // Start the server
 const start = async function () {
     try {
