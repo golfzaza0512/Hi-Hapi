@@ -98,7 +98,7 @@
 ```
 
 ### delete
-`DELETE` /del/{cardownerName}
+`DELETE` /del/{cardName}
 #### Response body
 ```json
 {
