@@ -23,8 +23,8 @@ server.route({
     method: "POST",
     path: "/add",
     handler: (request, reply) => {
-        return server.methods.timesheet
-            .AddTimesheet(server, request)
+        return server.methods.todo
+            .AddList(server, request)
             .then(reply);
     }
 });
@@ -33,7 +33,7 @@ server.route({
     method: 'GET',
     path: '/list',
     handler: (request, reply) => {
-        return server.methods.timesheet
+        return server.methods.todo
             .List(server, request)
             .then(reply);
     }
@@ -41,20 +41,20 @@ server.route({
 
 server.route({
     method: "PUT",
-    path: "/update/{date}",
+    path: "/update/{description}",
     async handler(request, reply) {
-        return server.methods.timesheet
-            .UpdateTimesheet(server, request)
+        return server.methods.todo
+            .UpdateTodo(server, request)
             .then(reply);
     }
 });
 
 server.route({
     method: "DELETE",
-    path: "/del/{date}",
+    path: "/del/{description}",
     handler: (request, reply) => {
-        return server.methods.timesheet
-            .RemoveTimesheet(server, request)
+        return server.methods.todo
+            .Remove(server, request)
             .then(reply);
     }
 });
@@ -67,8 +67,8 @@ const start = async function () {
                 plugin: require("hapi-mongodb"),
                 options: dbOpts
             },
-            require("./timesheet"),
-            require("./timesheet-datasource")
+            require("./todo"),
+            require("./todo-datasource")
         ]);
         await server.start();
     } catch (err) {

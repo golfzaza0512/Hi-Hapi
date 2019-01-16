@@ -1,55 +1,55 @@
 exports.plugin = {
-    name: "timesheet",
+    name: "todo",
     version: "1.0.0",
     register: async function (server, options) {
 
         server.method({
-            name: "timesheet.AddTimesheet",
-            method: addTimesheet
+            name: "todo.AddList",
+            method: addList
         });
 
         server.method({
-            name: "timesheet.List",
-            method: getTimesheetList
+            name: "todo.List",
+            method: getTodoList
         });
 
         server.method({
-            name: "timesheet.UpdateTimesheet",
-            method: updateTimesheet
+            name: "todo.UpdateTodo",
+            method: updateTodo
         });
 
         server.method({
-            name: "timesheet.RemoveTimesheet",
-            method: removeTimesheet
+            name: "todo.Remove",
+            method: removeCard
         });
 
     }
 };
 
-const addTimesheet = (server, request) => {
+const addList = (server, request) => {
     const body = {
-        date: request.payload.date,
-        timeIn: request.payload.timeIn,
-        timeOut: request.payload.timeOut,
+        size: request.payload.size,
+        status: request.payload.status,
+        device: request.payload.device,
         description: request.payload.description,
-        siteName: request.payload.siteName,
-        ot: request.payload.ot
+        priority: request.payload.priority,        
+        name: request.payload.name
     }
     return new Promise((resolve, reject) => {
-        server.methods.datasource.timesheet
+        server.methods.datasource.todo
             .Insert(request.mongo.db, body)
             .then((res) => {
                 if (res.result.ok == 1) {
                     console.log(res.ops)
                     resolve({
                         status: 200,
-                        message: "เพิ่มได้เว้ยยยยยยย",
+                        message: "ถูกแล้วจ้า",
                         data: (res.ops && res.ops.length > 0) ? res.ops[0] : {}
                     });
                 } else {
                     reject({
                         status: 500,
-                        message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                        message: "เราทำผิดน้ะ จุ้บๆ",
                         data: null
                     });
                 }
@@ -57,48 +57,48 @@ const addTimesheet = (server, request) => {
                 console.log(error);
                 reject({
                     status: 500,
-                    message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                    message: "ไปตายส้ะ อิอิ",
                     data: null
                 });
             });
     });
 
 }
-var getTimesheetList = (server, request) => {
+var getTodoList = (server, request) => {
     return new Promise((resolve, reject) => {
-        server.methods.datasource.timesheet.Query(request.mongo.db)
+        server.methods.datasource.todo.Query(request.mongo.db)
             .then((res) => {
                 resolve(res);
             })
     });
 }
 
-const updateTimesheet = (server, request) => {
+const updateTodo = (server, request) => {
     const body = {
-        date: request.payload.date,
-        timeIn: request.payload.timeIn,
-        timeOut: request.payload.timeOut,
+        size: request.payload.size,
+        status: request.payload.status,
+        device: request.payload.device,
         description: request.payload.description,
-        siteName: request.payload.siteName,
-        ot: request.payload.ot
+        priority: request.payload.priority,        
+        name: request.payload.name
     }
 
     return new Promise((resolve, reject) => {
         // const date = request.mongo.date;
-        server.methods.datasource.timesheet
-            .Update(request.mongo.db, request.params.date, body)
+        server.methods.datasource.todo
+            .Update(request.mongo.db, request.params.description, body)
             .then((res) => {
                 if (res.result.ok == 1) {
                     console.log(body)
                     resolve({
                         status: 200,
-                        message: "เพิ่มได้เว้ยยยยยยย",
+                        message: "เย้ !!!!!",
                         data: body
                     });
                 } else {
                     reject({
                         status: 500,
-                        message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                        message: "ไม่ !!",
                         data: null
                     });
                 }
@@ -106,29 +106,29 @@ const updateTimesheet = (server, request) => {
                 console.log(error);
                 reject({
                     status: 500,
-                    message: "เพิ่มไม่ได้เว้ยยยยยยย",
+                    message: "ไม่ !!!!",
                     data: null
                 });
             });
     });
 }
 
-var removeTimesheet = (server, request) => {
-    const date = request.params.date;
+var removeCard = (server, request) => {
+    const description = request.params.description;
     return new Promise((resolve, reject) => {
-        server.methods.datasource.timesheet
-            .Remove(request.mongo.db, date)
+        server.methods.datasource.todo
+            .Remove(request.mongo.db, description)
             .then((res) => {
                 if (res.deletedCount) {
                     resolve({
                         status: 200,
-                        message: "ลบได้เว้ยยยยยยย",
+                        message: "ไม่ทำแมร่งแล้ว เอาคืนไป๋ !!!!!!",
                         data: null
                     });
                 } else {
                     reject({
                         status: 500,
-                        message: "ลบไม่ได้เว้ยยยยยยย",
+                        message: "ทำๆไปเหอะๆ !!",
                         data: null
                     });
                 }
@@ -137,7 +137,7 @@ var removeTimesheet = (server, request) => {
                 console.log(error);
                 reject({
                     status: 500,
-                    message: "ลบไม่ได้เว้ยยยยยยย",
+                    message: "ทำๆไป !!",
                     data: null
                 });
             });
