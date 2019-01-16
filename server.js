@@ -4,7 +4,7 @@ const Hapi = require('hapi');
 
 const dbOpts = {
     url:
-        "-----รอ mongodb-----",
+        "mongodb://admin:admin@cluster0-shard-00-00-sdzlc.gcp.mongodb.net:27017,cluster0-shard-00-01-sdzlc.gcp.mongodb.net:27017,cluster0-shard-00-02-sdzlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true",
     settings: {
         poolSize: 10
     },
@@ -20,10 +20,11 @@ const server = Hapi.server({
 // Add the route
 server.route({
     method: 'GET',
-    path: '/hello',
-    handler: function (request, h) {
-
-        return 'HI--MY-HAPI';
+    path: '/list',
+    handler: (request, reply) => {
+        return server.methods.timesheet
+        .List(server, request)
+        .then(reply);
     }
 });
 
@@ -35,8 +36,8 @@ const start = async function () {
                 plugin: require("hapi-mongodb"),
                 options: dbOpts
             },
-            require("./hapi-my-water-product"),
-            require("./hapi-my-water-datasource")
+            require("./timesheet"),
+            require("./timesheet-datasource")
         ]);
         await server.start();
     } catch (err) {
