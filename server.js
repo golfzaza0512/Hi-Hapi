@@ -2,6 +2,15 @@
 
 const Hapi = require('hapi');
 
+const dbOpts = {
+    url:
+        "-----รอ mongodb-----",
+    settings: {
+        poolSize: 10
+    },
+    decorate: true
+};
+
 // Create a server with a host and port
 const server = Hapi.server({
     host: '0.0.0.0',
@@ -20,16 +29,22 @@ server.route({
 
 // Start the server
 const start = async function () {
-
     try {
+        await server.register([
+            {
+                plugin: require("hapi-mongodb"),
+                options: dbOpts
+            },
+            require("./hapi-my-water-product"),
+            require("./hapi-my-water-datasource")
+        ]);
         await server.start();
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
         process.exit(1);
     }
 
-    console.log('Server running at:', server.info.uri);
+    console.log("Server running at:", server.info.uri);
 };
 
 start();
