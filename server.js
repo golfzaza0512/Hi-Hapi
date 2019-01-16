@@ -14,7 +14,7 @@ server.route({
     path:'/hello',
     handler:function(request,h) {
 
-        return'hello world';
+        return'HI--MY-HAPI';
     }
 });
 
