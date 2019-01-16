@@ -41,7 +41,7 @@ server.route({
 
 server.route({
     method: "PUT",
-    path: "/update/{description}",
+    path: "/update/{cardName}",
     async handler(request, reply) {
         return server.methods.todo
             .UpdateTodo(server, request)
@@ -51,7 +51,7 @@ server.route({
 
 server.route({
     method: "DELETE",
-    path: "/del/{description}",
+    path: "/del/{cardName}",
     handler: (request, reply) => {
         return server.methods.todo
             .Remove(server, request)

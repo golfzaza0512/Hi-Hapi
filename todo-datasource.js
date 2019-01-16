@@ -43,10 +43,10 @@ const QueryList = (db) => {
     });
 }
 
-const updateTodo = (db, description, body) => {
-    return db.collection('mongo-naja').update({ description: description }, body);
+const updateTodo = (db, cardName, body) => {
+    return db.collection('mongo-naja').update({ cardName: cardName }, body);
 }
 
-const RemoveCard = (db, description) => {
-    return db.collection('mongo-naja').deleteOne({ description: description });
+const RemoveCard = (db, cardName) => {
+    return db.collection('mongo-naja').deleteOne({ cardName: cardName });
 }

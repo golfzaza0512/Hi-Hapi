@@ -31,9 +31,9 @@ const addList = (server, request) => {
         size: request.payload.size,
         status: request.payload.status,
         device: request.payload.device,
-        description: request.payload.description,
+        cardName: request.payload.cardName,
         priority: request.payload.priority,        
-        name: request.payload.name
+        ownerName: request.payload.ownerName
     }
     return new Promise((resolve, reject) => {
         server.methods.datasource.todo
@@ -78,15 +78,15 @@ const updateTodo = (server, request) => {
         size: request.payload.size,
         status: request.payload.status,
         device: request.payload.device,
-        description: request.payload.description,
+        cardName: request.payload.cardName,
         priority: request.payload.priority,        
-        name: request.payload.name
+        ownerName: request.payload.ownerName
     }
 
     return new Promise((resolve, reject) => {
         // const date = request.mongo.date;
         server.methods.datasource.todo
-            .Update(request.mongo.db, request.params.description, body)
+            .Update(request.mongo.db, request.params.cardName, body)
             .then((res) => {
                 if (res.result.ok == 1) {
                     console.log(body)
@@ -114,10 +114,10 @@ const updateTodo = (server, request) => {
 }
 
 var removeCard = (server, request) => {
-    const description = request.params.description;
+    const cardName = request.params.cardName;
     return new Promise((resolve, reject) => {
         server.methods.datasource.todo
-            .Remove(request.mongo.db, description)
+            .Remove(request.mongo.db, cardName)
             .then((res) => {
                 if (res.deletedCount) {
                     resolve({

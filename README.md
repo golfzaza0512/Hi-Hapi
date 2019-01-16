@@ -10,8 +10,8 @@
             "status": "TO DO",
             "device": "PC",
             "priority": "1",
-            "description": "develop ocr",
-            "name" : ""
+            "cardName": "develop ocr",
+            "ownerName" : ""
 }
 ```
 #### Response body
@@ -19,18 +19,15 @@
 {
     "status": 200,
     "message": "ถูกแล้วจ้า",
-    "data": 
-    [
-        {
-            "size": "XL",
-            "status": "TO DO",
-            "device": "PC",
-            "priority": "1",
-            "description": "develop ocr",
-            "name" : "",
-            "_id" : "5c3ee4f17efb52dae847270d"
-        }
-    ]
+    "data": {
+        "size": "XL",
+        "status": "TO DO",
+        "device": "PC",
+        "cardName": "develop ocr",
+        "priority": "1",
+        "ownerName": "",
+        "_id": "5c3f000e4050e94a606d27af"
+    }
 }
 ```
 
@@ -46,33 +43,33 @@
         "size": "XL",
         "status": "TO DO",
         "device": "PC",
-        "description": "develop ocr",
+        "cardName": "develop ocr",
         "priority": "1",
-        "name": ""
+        "ownerName": ""
     },
     {
         "_id": "5c3ef4f06b56f94ae8f653c7",
         "size": "XL",
         "status": "TO DO",
         "device": "PC",
-        "description": "develop ocr",
+        "cardName": "develop ocr",
         "priority": "1",
-        "name": "fast"
+        "ownerName": "fast"
     },
     {
         "_id": "5c3ef4f56b56f94ae8f653c8",
         "size": "XL",
         "status": "TO DO",
         "device": "PC",
-        "description": "develop ocr",
+        "cardName": "develop ocr",
         "priority": "1",
-        "name": "golf"
+        "ownerName": "golf"
     }
 ]
 ```
 
 ### update
-`PUT` /update/{description}
+`PUT` /update/{cardName}
 #### Request body
 ```json
 {
@@ -80,8 +77,8 @@
             "status": "Doing",
             "device": "PC",
             "priority": "2",
-            "description": "develop ocr",
-            "name" : "hum"
+            "cardName": "develop ocr",
+            "ownerName" : "hum"
 }
 ```
 #### Response body
@@ -93,15 +90,15 @@
         "size": "s",
         "status": "Doing",
         "device": "PC",
-        "description": "develop ocr",
+        "cardName": "develop ocr",
         "priority": "2",
-        "name": "hum"
+        "ownerName": "hum"
     }
 }
 ```
 
 ### delete
-`DELETE` /del/{description}
+`DELETE` /del/{cardownerName}
 #### Response body
 ```json
 {
